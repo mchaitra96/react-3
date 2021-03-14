@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Best Sum</title>
+  <meta charset="UTF-8" />
+</head>
+
+<body>
+  <div id="value"></div>
+
+  <script>
+    function ubset(arra, arra_size, value) {
+      var result_set = [],
+        result;
+
+
+      for (var x = 0; x < Math.pow(2, arra.length); x++) {
+        result = [];
+        i = arra.length - 1;
+        do {
+          if ((x & (1 << i)) !== 0) {
+            result.push(arra[i]);
+          }
+        } while (i--);
+
+        if (result.length === arra_size) {
+          result_set.push(result);
+        }
+      }
+      var final = []
+      for (var k = 0; k < result_set.length; k++) {
+        var sum = result_set[k].reduce((a, b) => a + b, 0)
+        final.push(sum)
+
+      }
+      var dist = []
+      for (var p = 0; p < final.length; p++) {
+        if (value >= final[p]) {
+
+          dist.push(final[p])
+        }
+      }
+      
+      if (dist.length) {
+        return dist[1];
+      }
+      else {
+        return null;
+      }
+    }
+
+    // console.log(ubset([50, 55, 57, 58, 60], 3));
+
+
+
+
+
+    const chooseBestSum = ubset([50, 55, 57, 58, 60], 3, 163);
+    console.log(
+      `There ${chooseBestSum > 1 ? "are" : "is"} ${chooseBestSum} island${chooseBestSum > 1 ? "s" : ""
+      }`
+    );
+
+    document.getElementById("value").innerHTML = `There ${chooseBestSum > 1 ? "are" : "is"
+      } ${chooseBestSum} Best Sum${chooseBestSum > 1 ? "s" : ""}`;
+
+  </script>
+</body>
+
+</html>
